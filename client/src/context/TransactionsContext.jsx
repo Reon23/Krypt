@@ -7,9 +7,9 @@ export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
-const getEthereumContract = () => {
+const getEthereumContract = async () => {
     const provider = new ethers.BrowserProvider(ethereum);
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
     const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
 
     return transactionContract;
@@ -63,7 +63,7 @@ export const TransactionProvider = ({ children }) => {
         try {
             if (!ethereum) return alert("Please install metamask");
             const { addressTo, amount, keyword, message } = formData;
-            const transactionContract = getEthereumContract();
+            const transactionContract = await getEthereumContract();
             const parsedAmount = ethers.parseEther(amount);
 
             await ethereum.request({
@@ -86,7 +86,7 @@ export const TransactionProvider = ({ children }) => {
 
             const transactionCount = await transactionContract.getTransactionCount;
 
-            setTransactionCount(transactionCount.toNumber())
+            setTransactionCount(transactionCount.toNumber());
 
         } catch (error) {
             console.log(error);
