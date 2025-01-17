@@ -36,8 +36,8 @@ export const TransactionProvider = ({ children }) => {
     // });
 
     useEffect(() => {
-        if (!window.isMetaMask) {
-            alert("Please install metamask")
+        if (typeof window.ethereum === 'undefined' || !window.ethereum.isMetaMask) {
+            alert("Please install MetaMask to use this site");
         }
     }, [])
 
