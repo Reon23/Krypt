@@ -36,7 +36,7 @@ export const TransactionProvider = ({ children }) => {
     // });
 
     useEffect(() => {
-        if (!ethereum.isMetaMask) {
+        if (!window.isMetaMask) {
             alert("Please install metamask")
         }
     }, [])
